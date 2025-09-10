@@ -1,8 +1,8 @@
 package dev.hybridlabs.aquatic.config
 
 import dev.hybridlabs.aquatic.entity.HybridAquaticEntityTypes
+import dev.hybridlabs.aquatic.platform.Services
 import dev.hybridlabs.aquatic.tag.HybridAquaticBiomeTags
-import dev.hybridlabs.aquatic.utils.HybridAquaticSpawnGroup
 import net.minecraft.tags.BiomeTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.EntityType
@@ -158,7 +158,7 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.FISH.spawnGroup, weight, minGroup, maxGroup)
+        add(entityType, spawnTags, Services.PLATFORM.getMobCategoryByName("FISH"), weight, minGroup, maxGroup)
     }
 
     private fun addUndergroundFish(
@@ -168,7 +168,14 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.FISH_UNDERGROUND.spawnGroup, weight, minGroup, maxGroup)
+        add(
+            entityType,
+            spawnTags,
+            Services.PLATFORM.getMobCategoryByName("FISH_UNDERGROUND"),
+            weight,
+            minGroup,
+            maxGroup
+        )
     }
 
     private fun addCephalopod(
@@ -178,7 +185,11 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.CEPHALOPOD.spawnGroup, weight, minGroup, maxGroup)
+        add(
+            entityType, spawnTags,
+            Services.PLATFORM.getMobCategoryByName("CEPHALOPOD"),
+            weight, minGroup, maxGroup
+        )
     }
 
     private fun addUndergroundCephalopod(
@@ -188,7 +199,10 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.CEPHALOPOD.spawnGroup, weight, minGroup, maxGroup
+        add(
+            entityType, spawnTags,
+            Services.PLATFORM.getMobCategoryByName("CEPHALOPOD"),
+            weight, minGroup, maxGroup
         )
     }
 
@@ -199,7 +213,11 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.SHARK.spawnGroup, weight, minGroup, maxGroup)
+        add(
+            entityType, spawnTags,
+            Services.PLATFORM.getMobCategoryByName("SHARK"),
+            weight, minGroup, maxGroup
+        )
     }
 
     private fun addUndergroundShark(
@@ -209,7 +227,11 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.SHARK_UNDERGROUND.spawnGroup, weight, minGroup, maxGroup)
+        add(
+            entityType, spawnTags,
+            Services.PLATFORM.getMobCategoryByName("SHARK_UNDERGROUND"),
+            weight, minGroup, maxGroup
+        )
     }
 
     private fun addDolphin(
@@ -219,7 +241,11 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, MobCategory.WATER_CREATURE, weight, minGroup, maxGroup)
+        add(
+            entityType, spawnTags,
+            MobCategory.WATER_CREATURE,
+            weight, minGroup, maxGroup
+        )
     }
 
     private fun addJelly(
@@ -229,7 +255,11 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.JELLY.spawnGroup, weight, minGroup, maxGroup)
+        add(
+            entityType, spawnTags,
+            Services.PLATFORM.getMobCategoryByName("JELLY"),
+            weight, minGroup, maxGroup
+        )
     }
 
     private fun addUndergroundJelly(
@@ -239,7 +269,11 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.JELLY_UNDERGROUND.spawnGroup, weight, minGroup, maxGroup)
+        add(
+            entityType, spawnTags,
+            Services.PLATFORM.getMobCategoryByName("JELLY_UNDERGROUND"),
+            weight, minGroup, maxGroup
+        )
     }
 
     private fun addCrustacean(
@@ -249,7 +283,11 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.CRUSTACEAN.spawnGroup, weight, minGroup, maxGroup)
+        add(
+            entityType, spawnTags,
+            Services.PLATFORM.getMobCategoryByName("CRUSTACEAN"),
+            weight, minGroup, maxGroup
+        )
     }
 
     private fun addUndergroundCrustacean(
@@ -260,7 +298,9 @@ class EntitySpawnConfigGenerator {
         maxGroup: Int
     ) {
         add(
-            entityType, spawnTags, HybridAquaticSpawnGroup.CRUSTACEAN_UNDERGROUND.spawnGroup, weight, minGroup, maxGroup
+            entityType, spawnTags,
+            Services.PLATFORM.getMobCategoryByName("CRUSTACEAN_UNDERGROUND"),
+            weight, minGroup, maxGroup
         )
     }
 
@@ -271,7 +311,11 @@ class EntitySpawnConfigGenerator {
         minGroup: Int,
         maxGroup: Int
     ) {
-        add(entityType, spawnTags, HybridAquaticSpawnGroup.CRITTER.spawnGroup, weight, minGroup, maxGroup)
+        add(
+            entityType, spawnTags,
+            Services.PLATFORM.getMobCategoryByName("CRITTER"),
+            weight, minGroup, maxGroup
+        )
     }
 
     private fun add(
