@@ -1,12 +1,12 @@
 package datagen
 
-import dev.hybridlabs.aquatic.CommonClass
 import dev.hybridlabs.aquatic.Constants
-import dev.hybridlabs.aquatic.config.ConfigHelper.initializeConfig
 import dev.hybridlabs.aquatic.config.HybridAquaticConfigHandler
+import dev.hybridlabs.aquatic.initializeConfig
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.biome.MobSpawnSettings
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider
 import net.minecraftforge.common.world.ForgeBiomeModifiers
@@ -25,7 +25,7 @@ object DataGenerators {
         val packOutput = generator.packOutput
         val lookupProvider = event.lookupProvider
 
-        val configFile = CommonClass.CONFIG_FILE
+        val configFile = Constants.CONFIG_FILE
         val configHandler = HybridAquaticConfigHandler(configFile.toFile())
         initializeConfig(configFile, configHandler)
 
@@ -37,7 +37,7 @@ object DataGenerators {
                 val location = "${it.type.toShortString()}_${it.biomes.location.path}"
                 val key = ResourceKey.create(
                     ForgeRegistries.Keys.BIOME_MODIFIERS,
-                    CommonClass.locate(location)
+                    ResourceLocation(Constants.MOD_ID, location)
                 )
                 context.register(
                     key, ForgeBiomeModifiers.AddSpawnsBiomeModifier(

@@ -1,7 +1,7 @@
 plugins {
-    id 'multiloader-loader';
-    id 'net.neoforged.moddev.legacyforge';
-    id 'org.jetbrains.kotlin.jvm';
+    id 'multiloader-loader'
+    id 'net.neoforged.moddev.legacyforge'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 // This config will copy the output of Fabric's runDatagen task into
@@ -10,16 +10,22 @@ configurations.create('fabricDatagen')
 dependencies {
     fabricDatagen project(path: ':fabric', configuration: 'datagenOutput')
 }
+tasks.register('copyDatagen', Copy) {
+    group "build"
+    from configurations.fabricDatagen // this will create a task dependency
+    into "src/generated/fabric/resources"
+}
+
+mixin {
+    add(sourceSets.main, "${forge_mod_id}.refmap.json")
+    config("${mod_id}.forge.mixins.json")
+}
 
 legacyForge {
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'kotlin'
     version = "${minecraft_version}-${forge_version}"
 
-    mixin {
-        add(sourceSets.main, "${forge_mod_id}.refmap.json")
-        config("${mod_id}.forge.mixins.json")
-    }
 
     // AT validation is broken on Forge 1.20.1
     validateAccessTransformers = false
@@ -39,6 +45,11 @@ legacyForge {
         main.kotlin.srcDirs = ['src/main/java', 'src/main/kotlin']
     }
 
+    compileKotlin {
+        source(project(":common").sourceSets.main.kotlin)
+        source(project(":common").sourceSets.main.java)
+        inputs.file "../gradle.properties"
+    }
 
     runs {
         client {
@@ -47,8 +58,8 @@ legacyForge {
         data {
             data()
             programArguments.addAll '--mod', 'hybrid_aquatic', '--all',
-                    '--output', file('src/generated/resources/').getAbsolutePath(),
-                    '--existing', file('src/main/resources/').getAbsolutePath()
+                    '--output', file('src/generated/forge/resources/').getAbsolutePath(),
+                    '--existing', file('src/generated/fabric/resources/').getAbsolutePath()
         }
         server {
             server()
@@ -74,14 +85,13 @@ repositories {
     mavenCentral()
 }
 
-sourceSets.main.resources.srcDirs += 'src/generated/resources'
+sourceSets.main.resources.srcDirs += project(':common').file("src/main/resources")
+sourceSets.main.resources.srcDirs += 'src/generated/forge/resources'
+sourceSets.main.resources.srcDirs += 'src/generated/fabric/resources'
 
-processResources {
-    from configurations.fabricDatagen.singleFile
-}
+sourceSets.main.java.srcDirs += project(":common").file('src/main/java')
 
 dependencies {
-    compileOnly project(":common")
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
     modImplementation "software.bernie.geckolib:geckolib-forge-$geckolib_version"
@@ -97,7 +107,11 @@ jar {
     ])
 }
 
-compileKotlin {
-    source(project(":common").sourceSets.main.allSource)
-    inputs.file "../gradle.properties"
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'kotlin'
+    repositories {
+        mavenCentral()
+    }
 }
