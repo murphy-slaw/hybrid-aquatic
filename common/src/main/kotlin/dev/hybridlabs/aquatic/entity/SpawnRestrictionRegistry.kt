@@ -5,7 +5,6 @@ import dev.hybridlabs.aquatic.entity.critter.HybridAquaticCritterEntity
 import dev.hybridlabs.aquatic.entity.crustacean.HybridAquaticCrustaceanEntity
 import dev.hybridlabs.aquatic.entity.fish.HybridAquaticFishEntity
 import dev.hybridlabs.aquatic.entity.jellyfish.HybridAquaticJellyfishEntity
-import dev.hybridlabs.aquatic.entity.mammal.HybridAquaticDolphinEntity
 import dev.hybridlabs.aquatic.entity.mammal.HybridAquaticMammalEntity
 import dev.hybridlabs.aquatic.entity.miniboss.HybridAquaticMinibossEntity
 import dev.hybridlabs.aquatic.entity.shark.HybridAquaticSharkEntity
@@ -233,10 +232,10 @@ object SpawnRestrictionRegistry {
     }
 
     private fun <T : WaterAnimal> registerDolphin(entityType: EntityType<T>) {
-        registerWaterCreature(entityType, HybridAquaticDolphinEntity::canSpawn)
+        registerWaterCreature(entityType, HybridAquaticMammalEntity::canSpawn)
     }
 
-    private fun <T : HybridAquaticMammalEntity> registerMammal(entityType: EntityType<T>) {
+    private fun <T : WaterAnimal> registerMammal(entityType: EntityType<T>) {
         registerLandWaterCreature(entityType, HybridAquaticMammalEntity::canSpawn)
     }
 
